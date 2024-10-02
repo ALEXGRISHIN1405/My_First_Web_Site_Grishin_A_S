@@ -1,17 +1,13 @@
+var count = 0;
 
-const button = document.createElement('button');
-button.innerText = 'Click me';
 
-button.addEventListener("click", setImageVisible);
-
-img=document.getElementById("images");
-
-function setImageVisible() {
-    if (img.style.visibility == 'visible'){
-        img.style.visibility = ('hidden');
+document.getElementById("This_button").onclick = function () {
+    count++;
+    if (count % 2 == 0) {
+        document.getElementById("demo").innerHTML = "";
     } else {
-        img.style.visibility = ('visible');
-    }   
+        var img = document.createElement("img");
+        img.src = "./img/logo.png";
+        document.getElementById("demo").appendChild(img);
+    }
 }
-
-document.body.appendChild(button);

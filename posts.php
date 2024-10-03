@@ -2,6 +2,7 @@
 $link = mysqli_connect('127.0.0.1', 'root', '123', 'first');
 $id = $_GET['id'];
 $sql = "SELECT * FROM new_posts WHERE id=$id";
+echo $sql;
 $res = mysqli_query($link, $sql);
 $rows = mysqli_fetch_array($res);
 $title = $rows['title'];

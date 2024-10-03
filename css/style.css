@@ -20,6 +20,13 @@
     width: 30px;
 }
 
+.logo {
+    background: url("../img/amazinglogo.png") no-repeat center center;
+    background-size: 100%;
+    width: 100px;
+    height: 100px;
+}
+
 #This_button {
     border: none;
     color: red;

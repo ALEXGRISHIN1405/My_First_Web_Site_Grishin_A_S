@@ -41,6 +41,17 @@ if (!mysqli_query($link, $sql)) {
     echo "Не удалось создать таблицу posts";
 }
 
+$sql = "CREATE TABLE IF NOT EXISTS new_posts(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(20) NOT NULL,
+    main_text VARCHAR(400) NOT NULL,
+    name_file VARCHAR(400) 
+)";
+
+if (!mysqli_query($link, $sql)) {
+    echo "Не удалось создать таблицу new_posts";
+}
+
 mysqli_close($link);
 
 ?>

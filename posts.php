@@ -1,11 +1,12 @@
 <?php
 $link = mysqli_connect('127.0.0.1', 'root', '123', 'first');
 $id = $_GET['id'];
-$sql = "SELECT * FROM posts WHERE id=$id";
+$sql = "SELECT * FROM new_posts WHERE id=$id";
 $res = mysqli_query($link, $sql);
 $rows = mysqli_fetch_array($res);
 $title = $rows['title'];
 $main_text = $rows['main_text'];
+$file_name = $rows['name_file'];
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +24,10 @@ $main_text = $rows['main_text'];
     <?php
         echo "<h1> $title </h1>";
         echo "<p> $main_text </p>";
+        if ($file_name != "NULL") {
+        echo '<img src="./upload/' . $file_name . '" >';
+
+        }
     ?>
 </body>
 </html>

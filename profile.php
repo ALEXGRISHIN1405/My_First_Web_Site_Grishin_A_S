@@ -45,10 +45,10 @@
           </h1>
         </div>
         <div class="col-12">
-          <form class="form_align" method="POST" action="profile.php" enctype="mulripart/form-data" name="upload">
+          <form class="form_align" method="POST" action="profile.php" enctype="multipart/form-data" name="upload">
             <input type="text" class="form" name="title" placeholder="Заголовок вашего поста">
             <textarea name="text" cols="30" rows="10" placeholder="Введите текс вашего поста ..."></textarea>
-            <input type="file" name="file" /><br>
+            <input type="file" name="file"><br>
             <button type="submit" class="btn_red" name="submit">Сохранить пост!</button>
           </form>
         </div>
@@ -63,17 +63,14 @@
 require_once('db.php');
 
 $link = mysqli_connect('127.0.0.1', 'root', '123', 'first');
+
 if (isset($_POST['submit'])) {
   $title = $_POST['title'];
   $main_text = $_POST['text'];
 
   if (!$title || !$main_text) die("Заполните все поля");
 
-  $sql = "INSERT INTO posts (title, main_text) VALUES ('$title', '$main_text')";
-
-  if (!mysqli_query($link, $sql)) die("Не удалось добавить пост");
-
-  if(!empty($_FILES["file"]))
+  if(is_uploaded_file($_FILES["file"]["tmp_name"]))
     {
         if (((@$_FILES["file"]["type"] == "image/gif") || (@$_FILES["file"]["type"] == "image/jpeg")
         || (@$_FILES["file"]["type"] == "image/jpg") || (@$_FILES["file"]["type"] == "image/pjpeg")
@@ -82,11 +79,17 @@ if (isset($_POST['submit'])) {
         {
             move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"]);
             echo "Load in:  " . "upload/" . $_FILES["file"]["name"];
+            $file_name = @$_FILES["file"]["name"];
+            $sql = "INSERT INTO new_posts (title, main_text, name_file) VALUES ('$title', '$main_text', '$file_name')";
+            if (!mysqli_query($link, $sql)) die("Не удалось добавить пост");
         }
         else
         {
             echo "upload failed!";
         }
+    } else {
+      $sql = "INSERT INTO new_posts (title, main_text, name_file) VALUES ('$title', '$main_text', 'NULL')";
+      if (!mysqli_query($link, $sql)) die("Не удалось добавить пост");
     }
 }
 ?>

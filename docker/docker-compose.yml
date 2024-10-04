@@ -1,0 +1,35 @@
+version: "3"
+services:
+  server:
+    build: server/
+    depends_on:
+      - db
+    ports:
+      - 80:80
+    links:
+      - "db"
+    networks:
+      - server
+  db:
+    image: "mariadb:${MARIADB_VERSION}"
+    ports: 
+      - 80:80
+    networks:
+      - server
+    enviroment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${NYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "{MYSQL_PASSWORD}"
+networks:
+  server:
+    driver: bridge
+    config:
+      - subnet: 10.10.0.0/16
+        ip_range: 10.10.0.0/16
+        gateway: 10.10.0.254/16
+        aux_addresses:
+          host1: 10.10.0.5
+          host2: 10.10.0.6
+
+

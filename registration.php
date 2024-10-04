@@ -45,7 +45,7 @@
     $username = $_POST['login'];
     $password = $_POST['password'];
     if (!$email || !$username || !$password) die ('Пожалуйста введите все значения!');
-
+    echo $password;
     $sql = "INSERT INTO users (email, username, pass) VALUES ('$email', '$username', '$password')";
 
     if (!mysqli_query($link, $sql)) {
